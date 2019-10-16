@@ -1,11 +1,10 @@
 # zeyuanheihei
 
-运行环境：
+可运行环境：
 
 windows
 
 编译方法：
-
 python
 
 使用方法：
