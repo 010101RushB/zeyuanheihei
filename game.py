@@ -2,11 +2,11 @@ import tkinter as tk
 import pickle
 from tkinter import messagebox
 import urllib.request
-import requests
 import json
 import tkinter.messagebox 
 import pk
 from PIL import Image, ImageTk
+import requests
 class Game():
 
 	def __init__(self,s,s1):
@@ -49,7 +49,7 @@ class Game():
 		def history():
 			url5= 'https://api.shisanshui.rtxux.xyz/history'
 			headers5 = {"X-Auth-Token":self.token}
-			params5={"player_id":self.id,"limit":15,"page":20}
+			params5={"player_id":self.id,"limit":15,"page":0}
 			rrr=response=requests.get(url5,params=params5,headers=headers5)
 			hh=rrr.json()
 	
@@ -97,19 +97,21 @@ class Game():
 		canvas.create_image(0,0,anchor = 'nw',image= image1)
 		canvas.pack()
 
+
 		button_img_gif=tk.PhotoImage(file = 'IMA/start.gif')
 		global star_login
-		star_login =tk.Button(self.root, image =button_img_gif , text = '带图按钮',command=ppk)
+		star_login =tk.Button(self.root, image =button_img_gif ,relief="flat",text = '带图按钮',command=ppk)
 		star_login.place(x = 460,y = 300)
 
 
 		#paihangbang
 		button_img1_gif=tk.PhotoImage(file = 'IMA/rank.gif')
-		star_rank =tk.Button(self.root, image =button_img1_gif,command=rank)
+		star_rank =tk.Button(self.root,image =button_img1_gif,relief="flat",command=rank)
+
 		star_rank.place(x=400,y=450)
 
 		button_img2_gif=tk.PhotoImage(file = 'IMA/history.gif')
-		star_his =tk.Button(self.root, image =button_img2_gif,command=history)
+		star_his =tk.Button(self.root, image =button_img2_gif,relief="flat",command=history)
 		star_his.place(x=650,y=450)
 
 		self.root.mainloop()

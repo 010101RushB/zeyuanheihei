@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['main.py', 'game.py', 'deal.py', 'login.py', 'pk.py'],
+a = Analysis(['main.py', 'pk.py', 'game.py', 'login.py', 'deal.py'],
              pathex=['F:\\111\\十三水\\shisanshui\\shisanshui'],
              binaries=[],
              datas=[],

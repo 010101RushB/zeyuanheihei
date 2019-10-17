@@ -14,48 +14,54 @@ class node:
         self.flower=f
         self.num=n
 
-poker_1,poker_2,poker_3=[],[],[]    # 扑克牌分堆
-ans_1,ans_2,ans_3=[],[],[]  #暂时寄存排列答案
-temp_1,temp_2,temp_3=[],[],[]   #存放完整排列答案
-end_1,end_2,end_3=[],[],[]   #最终答案
-s1,s2,s3=[],[],[]   #标记
-tempp1,tempp2,tempp3=[],[],[]
 
-for i in range(0,20):
-    poker_1.append(node(0,0))
-    poker_2.append(node(0, 0))
-    poker_3.append(node(0, 0))
-    ans_1.append(node(0, 0))
-    ans_2.append(node(0, 0))
-    ans_3.append(node(0, 0))
-    temp_1.append(node(0, 0))
-    temp_2.append(node(0, 0))
-    temp_3.append(node(0, 0))
-    end_1.append(node(0,0))
-    end_2.append(node(0, 0))
-    end_3.append(node(0, 0))
-    s1.append(0)
-    s2.append(0)
-    s3.append(0)
 
-for i in range(0,2+1):
-    tempp1.append(node(0,0))
-for i in range(0,4+1):
-    tempp2.append(node(0,0))
-for i in range(0,4+1):
-    tempp3.append(node(0,0))
-
-global cnt,r1,r2,r3,end_ans,score # 计数器
-cnt,r1,r2,r3=0,5,5,3
-end_ans ,score= 0.0,0.0
-global e1, e2, e3
-global a1, a2, a3
-global token,id,use
-
-hua,number={},{}
-for i in range(0,15+1):
-    hua[i]=0
-    number[i]=0#桶排初始化
+def chushi():
+	global poker_1,poker_2,poker_3
+	poker_1,poker_2,poker_3=[],[],[]    # 扑克牌分堆
+	global ans_1,ans_2,ans_3
+	ans_1,ans_2,ans_3=[],[],[]  #暂时寄存排列答案
+	global temp_1,temp_2,temp_3
+	temp_1,temp_2,temp_3=[],[],[]   #存放完整排列答案
+	global  end_1,end_2,end_3
+	end_1,end_2,end_3=[],[],[]   #最终答案
+	global s1,s2,s3
+	s1,s2,s3=[],[],[]   #标记
+	global tempp1,tempp2,tempp3
+	tempp1,tempp2,tempp3=[],[],[]
+	for i in range(0,20):
+		poker_1.append(node(0,0))
+		poker_2.append(node(0, 0))
+		poker_3.append(node(0, 0))
+		ans_1.append(node(0, 0))
+		ans_2.append(node(0, 0))
+		ans_3.append(node(0, 0))
+		temp_1.append(node(0, 0))
+		temp_2.append(node(0, 0))
+		temp_3.append(node(0, 0))
+		end_1.append(node(0,0))
+		end_2.append(node(0, 0))
+		end_3.append(node(0, 0))
+		s1.append(0)
+		s2.append(0)
+		s3.append(0)
+	for i in range(0,2+1):
+		tempp1.append(node(0,0))
+	for i in range(0,4+1):
+		tempp2.append(node(0,0))
+	for i in range(0,4+1):
+		tempp3.append(node(0,0))
+	global cnt,r1,r2,r3,end_ans,score # 计数器
+	cnt,r1,r2,r3=0,5,5,3
+	end_ans ,score= 0.0,0.0
+	global e1, e2, e3
+	global a1, a2, a3
+	global token,id,use
+	global hua,number
+	hua,number={},{}
+	for i in range(0,15+1):
+		hua[i]=0
+		number[i]=0#桶排初始化
 
 def init_cnt():
     for i in range(0, 15+1):
@@ -450,7 +456,6 @@ def submitgame(submit_ans,token,id):
 	Body={'id': id, 'card':submit_ans}
 	r2 = requests.post(url=url2,json=Body,headers=header2)
 	res2=r2.json()
-	
     #return k
 
 
@@ -508,16 +513,14 @@ def printf_ans():#输出
 	submit_ans.append(s)
 	return submit_ans
 
+def chu():
+	x=13
 def run(roo,st,token,id):
+	chushi()
 	global root
 	root=roo
-	'''
-	img1= Image.open('images/'+'_2.jpg')
-	photo1 = ImageTk.PhotoImage(img1)
-	imglabel1 = tk.Label(root,image=photo1)
-	imglabel1.place(x=10,y=10)
-	'''
 	read_opengame(st);
+	submit_ans=[]
 	dfs_1(1, 1)#解决问题，深搜
 	submit_ans=printf_ans()
 	submitgame(submit_ans,token,id)

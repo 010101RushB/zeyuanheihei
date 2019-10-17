@@ -2,10 +2,10 @@ import tkinter as tk
 import pickle
 from tkinter import messagebox
 import urllib.request
-import requests
 import json
 import game
 import deal
+import requests
 from PIL import Image, ImageTk
 #对战界面
 canvas = None
@@ -154,7 +154,7 @@ class Pk():
 				imglabel122 = tk.Label(self.root,image=photo122)
 				imglabel122.place(x=1050,y=550)
 
-				tk.messagebox.showinfo(title = 'Welcome',message = '系统正在选择最佳牌型 ，耐心等候10~20秒' )
+				tk.messagebox.showinfo(title = 'Welcome',message = '系统正在选择最佳牌型 ' )
 				kk=[]
 				kk=deal.run(self.root,now['data']['card'],self.token,now['data']['id'])
 				

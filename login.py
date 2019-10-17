@@ -2,9 +2,9 @@ import tkinter as tk
 import pickle
 from tkinter import messagebox
 import urllib.request
-import requests
 import json
 import game
+import requests
 def usr_login():
 	usr_name = var_usr_name.get()
 	usr_pwd = var_usr_pwd.get()
@@ -41,41 +41,66 @@ def usr_sign_up():
 		np = new_pwd.get()
 		npf = new_pwd_confirm.get()
 		nn = new_name.get()
+
+		n1=stu.get()
+		nn1=pwd.get()
+
 		if np!= npf:
 			tk.messagebox.showerror('Error','Password and confirm password must be the same!')
 		else:
 			Body={}
 			Body['username']=nn
 			Body['password']=np
-			url='https://api.shisanshui.rtxux.xyz/auth/register'
+			Body['student_number']=n1
+			Body['student_password']=nn1
+			url='https://api.shisanshui.rtxux.xyz/auth/register2'
 			headers = {'Content-Type': 'application/json'}
 			r = requests.post(url=url, json=Body, headers=headers)
 			res=r.json()
 			if res['status'] == 0:
 				tk.messagebox.showinfo('Welcome','You have successfully signed up!')
+			elif res['status']== 1002:
+				tk.messagebox.showerror('哦吼！', '学号已经绑定')
+			elif res['status']== 1003:
+				tk.messagebox.showerror('哦吼！', '教务处认证失败')
+			elif res['status']== 1004:
+				tk.messagebox.showerror('哦吼！', '不存在此学号')
 			else :
-				tk.messagebox.showerror('哦吼！','似乎账号已经被注册过了')
+				tk.messagebox.showerror('哦吼！','似乎用户名已经被注册过了')
 
 	window_sign_up = tk.Toplevel(window)
-	window_sign_up.geometry('350x200')
+	window_sign_up.geometry('350x250')
 	window_sign_up.title('Sign up window')
+
 	new_name = tk.StringVar()
-	tk.Label(window_sign_up,text ='username:').place(x = 10,y = 10)
+	tk.Label(window_sign_up,text ='用户名:').place(x = 10,y = 10)
 	entry_new_name = tk.Entry(window_sign_up,textvariable = new_name)
 	entry_new_name.place(x = 150,y = 10)
 	
 	new_pwd = tk.StringVar()
-	tk.Label(window_sign_up,text = 'Password:').place(x = 10,y = 50)
+	tk.Label(window_sign_up,text = '密码:').place(x = 10,y = 50)
 	entry_new_pwd = tk.Entry(window_sign_up,textvariable = new_pwd,show = '*')
 	entry_new_pwd.place(x = 150,y = 50)
-	
+
+
+
+	stu = tk.StringVar()
+	tk.Label(window_sign_up,text = '教务处账号:').place(x = 10,y = 130)
+	student= tk.Entry(window_sign_up,textvariable = stu,show = '*')
+	student.place(x = 150,y = 130)
+
+	pwd = tk.StringVar()
+	tk.Label(window_sign_up, text='教务处密码:').place(x=10, y=170)
+	stu_pwd = tk.Entry(window_sign_up, textvariable=pwd, show='*')
+	stu_pwd.place(x=150, y=170)
+
 	new_pwd_confirm = tk.StringVar()
-	tk.Label(window_sign_up,text = 'Confirm password:').place(x = 10,y = 90)
-	entry_comfirm_sign_up = tk.Entry(window_sign_up,textvariable = new_pwd_confirm,show = '*')
-	entry_comfirm_sign_up.place(x = 150,y = 90)
-	
+	tk.Label(window_sign_up, text='确认密码:').place(x=10, y=90)
+	entry_comfirm_sign_up = tk.Entry(window_sign_up, textvariable=new_pwd_confirm, show='*')
+	entry_comfirm_sign_up.place(x=150, y=90)
+
 	btn_comfirm_sign_up = tk.Button(window_sign_up,text = 'Sign up',command = sign_to_Mofan_Python)
-	btn_comfirm_sign_up.place(x = 150,y = 130)                    
+	btn_comfirm_sign_up.place(x = 150,y = 200)
 	
 
 def run():
@@ -103,7 +128,7 @@ entry_usr_pwd = tk.Entry(window,textvariable = var_usr_pwd,show ='*')
 entry_usr_pwd.place(x = 160,y = 190)
 #Login and Sign up button
 # command = usr_login 调用usr_login函数
-btn_login = tk.Button(window,text = 'Login',command = usr_login)
+btn_login = tk.Button(window,text = '登录',command = usr_login)
 btn_login.place(x = 170,y = 230)
-btn_sign_up = tk.Button(window,text = 'Sign up',command = usr_sign_up)
+btn_sign_up = tk.Button(window,text = '注册',command = usr_sign_up)
 btn_sign_up.place(x = 270,y = 230)
